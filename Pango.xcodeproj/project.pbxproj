@@ -12,6 +12,8 @@
 		DB0D43BA198D2872003A5489 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB0D43B8198D2872003A5489 /* Main.storyboard */; };
 		DB0D43BC198D2872003A5489 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB0D43BB198D2872003A5489 /* Images.xcassets */; };
 		DB0D43C8198D2873003A5489 /* PangoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D43C7198D2873003A5489 /* PangoTests.swift */; };
+		DB0D43D2198D28A5003A5489 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB0D43D1198D28A5003A5489 /* QuartzCore.framework */; };
+		DB0D43D4198D28AC003A5489 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB0D43D3198D28AC003A5489 /* SceneKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,8 @@
 		DB0D43C1198D2872003A5489 /* PangoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PangoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB0D43C6198D2873003A5489 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB0D43C7198D2873003A5489 /* PangoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PangoTests.swift; sourceTree = "<group>"; };
+		DB0D43D1198D28A5003A5489 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DB0D43D3198D28AC003A5489 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +45,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB0D43D4198D28AC003A5489 /* SceneKit.framework in Frameworks */,
+				DB0D43D2198D28A5003A5489 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,6 +63,8 @@
 		DB0D43A6198D2871003A5489 = {
 			isa = PBXGroup;
 			children = (
+				DB0D43D3198D28AC003A5489 /* SceneKit.framework */,
+				DB0D43D1198D28A5003A5489 /* QuartzCore.framework */,
 				DB0D43B1198D2872003A5489 /* Pango */,
 				DB0D43C4198D2872003A5489 /* PangoTests */,
 				DB0D43B0198D2872003A5489 /* Products */,
