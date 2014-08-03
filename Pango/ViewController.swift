@@ -20,7 +20,9 @@ class ViewController: UIViewController {
     var rotateGesture2Start : CGFloat?
     var initialTransform : SCNMatrix4?
     var model = SCNNode()
-    
+    let cameraNode = SCNNode()
+    var cameraPosition : SCNVector3!
+    //var camera = SCNCamera()
     
     
     func installRecognizers() {
@@ -48,11 +50,16 @@ class ViewController: UIViewController {
         let scene = SCNScene()
         
         // Camera
-        let cameraNode = SCNNode()
+        
         cameraNode.camera = SCNCamera()
         cameraNode.position = SCNVector3Make(0, 0, 30)
         scene.rootNode.addChildNode(cameraNode)
         
+        // Camera constraints
+        
+        let lookAt = SCNLookAtConstraint(target: model)
+        cameraNode.constraints = [lookAt]
+
         // Ambient light
         let ambientLight = SCNNode()
         ambientLight.light = SCNLight()
@@ -126,42 +133,78 @@ class ViewController: UIViewController {
             }
         }
     }
-    
+
+    var cosA : Float!
+    var sinA : Float!
+
     @objc func handleRotate(recognizer: UIGestureRecognizer!) {
         let rotationFactor : Float = 0.03
         if let r = recognizer as? UIPanGestureRecognizer {
             switch r.state {
             case .Began:
                 rotateGestureStart = r.locationInView(self.view)
-                initialTransform = model.transform
+                cameraPosition = cameraNode.position
+                cosA = cameraNode.position.z/30.0
+                sinA = cameraNode.position.x/30.0
                 break
             case .Changed:
                 let point = r.locationInView(self.view)
                 let dx : Float = Float(point.x - rotateGestureStart!.x)
-                let dy : Float = Float(point.y - rotateGestureStart!.y)
-//                let dx : CGFloat = point.x - rotateGestureStart!.x
-//                let dy : CGFloat = point.y - rotateGestureStart!.y
+
+                let cosB = cos(-dx * rotationFactor)
+                let sinB = sin(-dx * rotationFactor)
                 
-                let rotY = SCNMatrix4MakeRotation(dx * rotationFactor, 0, 1, 0)
-                let rotX = SCNMatrix4MakeRotation(dy * rotationFactor, 1, 0, 0)
-                let rotation = SCNMatrix4Mult(rotY, rotX)
-                
-                model.transform = SCNMatrix4Mult(initialTransform!, rotation)
+                cameraNode.position = SCNVector3Make(30 * (sinA * cosB + cosA * sinB) , 0, 30 * (cosA * cosB - sinA * sinB))
                 
                 break
-            case .Cancelled:
-                rotateGestureStart = nil
-                model.transform = initialTransform!
-                break
+//            case .Cancelled:
+//                rotateGestureStart = nil
+//                model.transform = initialTransform!
+//                break
             case .Ended:
                 rotateGestureStart = nil
-                initialTransform = model.transform
+                cameraPosition = cameraNode.position
                 break
             default:
                 break
             }
         }
     }
+//    @objc func handleRotate(recognizer: UIGestureRecognizer!) {
+//        let rotationFactor : Float = 0.03
+//        if let r = recognizer as? UIPanGestureRecognizer {
+//            switch r.state {
+//            case .Began:
+//                rotateGestureStart = r.locationInView(self.view)
+//                initialTransform = model.transform
+//                break
+//            case .Changed:
+//                let point = r.locationInView(self.view)
+//                let dx : Float = Float(point.x - rotateGestureStart!.x)
+//                let dy : Float = Float(point.y - rotateGestureStart!.y)
+////                let dx : CGFloat = point.x - rotateGestureStart!.x
+////                let dy : CGFloat = point.y - rotateGestureStart!.y
+//                
+//                let rotY = SCNMatrix4MakeRotation(dx * rotationFactor, 0, 1, 0)
+//                let rotX = SCNMatrix4MakeRotation(dy * rotationFactor, 1, 0, 0)
+//                let rotation = SCNMatrix4Mult(rotY, rotX)
+//                
+//                model.transform = SCNMatrix4Mult(initialTransform!, rotation)
+//                
+//                break
+//            case .Cancelled:
+//                rotateGestureStart = nil
+//                model.transform = initialTransform!
+//                break
+//            case .Ended:
+//                rotateGestureStart = nil
+//                initialTransform = model.transform
+//                break
+//            default:
+//                break
+//            }
+//        }
+//    }
 
     @objc func handlePinch(recognizer: UIPinchGestureRecognizer!) {
         let pinchFactor : Float = 0.04
