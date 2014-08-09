@@ -97,13 +97,25 @@ class ViewController: UIViewController {
         scene.rootNode.addChildNode(floor)
         
         
-        let modelNode = model
+        let modelNode1 = model
 //        modelNode.geometry = SCNSphere(radius: 5.0)
-        modelNode.geometry = SCNBox(width: 4.0, height: 4.0, length: 4.0, chamferRadius: 0.4)
-        modelNode.geometry.materials = [material]
-        scene.rootNode.addChildNode(modelNode)
+        modelNode1.geometry = SCNBox(width: 4.0, height: 4.0, length: 4.0, chamferRadius: 0.4)
+        modelNode1.geometry.materials = [material]
+        scene.rootNode.addChildNode(modelNode1)
+        
+        
+        let modelNode2 : SCNNode = modelNode1.copy() as SCNNode
+        let modelNode3 : SCNNode = modelNode1.copy() as SCNNode
+        modelNode2.geometry = model.geometry
+        modelNode3.geometry = model.geometry
+        
+        modelNode2.position.x = 6.0
+        modelNode3.position.x = -6.0
+        
+        scene.rootNode.addChildNode(modelNode2)
+        scene.rootNode.addChildNode(modelNode3)
         sceneView.scene = scene
-        sceneView.contentMode = .ScaleAspectFit
+        sceneView.contentMode = .Redraw//.ScaleAspectFit
         
     }
 
